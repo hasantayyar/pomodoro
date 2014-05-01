@@ -1,49 +1,58 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: horsley
- * Date: 12-12-31
- * Time: ����8:01
- * To change this template use File | Settings | File Templates.
- */
 var pomodoro = 25 * 60;
 var pomodoroRest = 5 * 60;
 var pomodoroStatus = 0; //0:init 1:running a pomodoro 2:having rest 3:pomodoro completed 4:rest completed
 var reminderTxt = '';
 
-$(function(){
+$(function() {
     loadSettings();
     drawClock();
     var btn_start = $('#startBtn');
-    var btn_stop= $('#stopBtn');
+    var btn_stop = $('#stopBtn');
     var bar_progress = $('#mainTimeProgress');
 
-    btn_start.click(function(){
-        if (pomodoroStatus == 0 || pomodoroStatus == 1 || pomodoroStatus == 4) {    //start new pomodoro
+$( "#btns" ).hover(function() {
+            $("#btns").animate({ marginTop: '0px'}, 100);
+        },function(){
+            $("#btns").animate({ marginTop: '-60px' }, 100);
+
+    }
+);
+    btn_start.click(function() {
+        $("#progress").slideDown("fast");
+        if (pomodoroStatus === 0 || pomodoroStatus === 1 || pomodoroStatus === 4) {    //start new pomodoro
             mainCounter = pomodoro;
             pomodoroStatus = 1;
             toggleProgress();
-            btn_start.everyTime('1s', function(){
+            btn_start.everyTime('1s', function() {
                 mainCounter--;
-                $('#mainTimeCounter').html(s2Str(mainCounter));
-                bar_progress.width(mainCounter / pomodoro * 100 + '%');
-
-                if (mainCounter == 0) {
+                $('#pomodoroTimer').html(s2Str(mainCounter));
+                prog = Math.floor(mainCounter / pomodoro * 100);
+                bar_progress.width(prog + '%');
+                if (prog < 50 && prog > 20 && !bar_progress.hasClass("progress-warning")) {
+                    bar_progress.parent().removeClass("progress-success")
+                            .addClass("progress-warning");
+                }
+                if (prog < 20 && !bar_progress.hasClass("progress-danger")) {
+                    bar_progress.parent().removeClass("progress-warning")
+                            .addClass("progress-danger");
+                }
+                if (mainCounter === 0) {
                     pomodoroStatus = 3;
                     btn_start.html('Have a rest');
                     btn_start.removeClass('btn-primary').addClass('btn-success');
                     stopCounter();
                 }
             });
-        } else if (pomodoroStatus == 2 || pomodoroStatus == 3 ) { // start having a rest
+        } else if (pomodoroStatus === 2 || pomodoroStatus === 3) { // start having a rest
             mainCounter = pomodoroRest;
             pomodoroStatus = 2;
             toggleProgress();
-            btn_start.everyTime('1s', function(){
+            btn_start.everyTime('1s', function() {
                 mainCounter--;
-                $('#mainTimeCounter').html(s2Str(mainCounter));
+                $('#pomodoroTimer').html(s2Str(mainCounter));
                 bar_progress.width(mainCounter / pomodoroRest * 100 + '%');
 
-                if (mainCounter == 0) {
+                if (mainCounter === 0) {
                     pomodoroStatus = 4;
                     btn_start.html('Start Pomodoro');
                     btn_start.removeClass('btn-success').addClass('btn-primary');
@@ -54,21 +63,21 @@ $(function(){
 
     });
 
-    $('#setReminderBtn').click(function(){
+    $('#settitleBtn').click(function() {
         var inputText = $('input[name="reminderText"]').val();
-        var reminderContainer = $('#reminderContainer');
-        if ($.trim(inputText) != '') {
-            reminderContainer.html($.trim(inputText));
-            reminderContainer.show();
+        var titleContainer = $('#titleContainer');
+        if ($.trim(inputText) !== '') {
+            titleContainer.html($.trim(inputText));
+            titleContainer.show();
         } else {
-            reminderContainer.hide();
+            titleContainer.hide();
         }
         $('#txtModal').modal('hide');
         saveSettings();
         return false;
     });
 
-    $('#setTimerBtn').click(function(){
+    $('#setTimerBtn').click(function() {
         pomodoroStatus = 0
         stopCounter();
         drawClock();
@@ -76,50 +85,43 @@ $(function(){
         $('#txtModal2').modal('hide');
     });
 
-    $('input[name="pomodoroDuration"]').on('change', function(){
+    $('input[name="pomodoroDuration"]').on('change', function() {
         pomodoro = $(this).val() * 60;
-        drawProgress();
     });
 
-    $('input[name="restDuration"]').on('change', function(){
+    $('input[name="restDuration"]').on('change', function() {
         pomodoroRest = $(this).val() * 60;
-        drawProgress();
-    });
+     });
 
     $('#txtModal').on('shown', function() {
         $('input[name="reminderText"]').focus();
     });
 
     $('#txtModal2').on('shown', function() {
-        drawProgress();
-        $('input[name="pomodoroDuration"]').val(pomodoro / 60);
+         $('input[name="pomodoroDuration"]').val(pomodoro / 60);
         $('input[name="restDuration"]').val(pomodoroRest / 60);
     });
-
-    function drawProgress() {
-        $('#pomodoroDuration').width((pomodoro / (pomodoro + pomodoroRest) * 100) + "%");
-        $('#restDuration').width((pomodoroRest / (pomodoro + pomodoroRest) * 100) + "%");
-    }
+ 
 
     function drawClock() {
-        $('#mainTimeCounter').html(s2Str(pomodoro));
+        $('#pomodoroTimer').html(s2Str(pomodoro));
     }
 
-    $('input[name="reminderText"]').keypress(function(e){
-        if (e.keyCode == 13) {
-            $('#setReminderBtn').click();
+    $('input[name="reminderText"]').keypress(function(e) {
+        if (e.keyCode === 13) {
+            $('#settitleBtn').click();
             return false;
         }
     });
 
-    btn_stop.click(function(){
-        if (pomodoroStatus == 1 || pomodoroStatus == 2) {
+    btn_stop.click(function() {
+        if (pomodoroStatus === 1 || pomodoroStatus === 2) {
             stopCounter();
             toggleProgress();
         }
     });
 
-    btn_start.click(function(){
+    btn_start.click(function() {
         btn_start.addClass('disabled');
         btn_stop.removeClass('disabled');
     });
@@ -142,7 +144,7 @@ $(function(){
     }
 
     function loadSettings() {
-        if(window.localStorage){
+        if (window.localStorage) {
             var a, b, c;
             var storage = window.localStorage;
             if (a = storage.getItem('pomodoro')) {
@@ -158,7 +160,7 @@ $(function(){
     }
 
     function saveSettings() {
-        if(window.localStorage){
+        if (window.localStorage) {
             var storage = window.localStorage;
             storage.setItem('pomodoro', pomodoro);
             storage.setItem('pomodoroRest', pomodoroRest);
@@ -166,6 +168,3 @@ $(function(){
         }
     }
 });
-
-
-

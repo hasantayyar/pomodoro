@@ -1,85 +1,92 @@
 <!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>Pomodoro</title>
+<html  manifest="pomodoro.appcache">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pomodoro App</title> 
+        <style>
+            /*
+            * timer font size should be responsive!
+            */
+            #pomodoroTimer { font: bold 320px/1.0 'Josefin Sans'; text-align: center; }
+            #titleContainer { font-size: 72px; line-height: 1; text-align: center; padding: 10px; margin-top: 20px; }
+        </style>
+        <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    </head>
+    <body> 
+        <div class="container">
+            <div class="row">
+                <div id="titleContainer" class="span12 well hide"> Reminder </div>
+            </div>
 
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="css/main.css">
+            <div class="clearfix row well" id="btns" style="margin-top:-60px">
+                <div>
+                    <button class="btn btn-sm btn-primary" id="startBtn">Start Pomodoro</button>
+                    <button class="btn btn-sm disabled" id="stopBtn">Stop</button>
 
-    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.timers.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-</head>
-<body>
-<a href="https://github.com/horsley/pomodoro">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
-</a>
-<div class="container">
-    <div>
-        <div id="reminderContainer" class="well hide">提示信息</div>
-    </div>
-    <div>
-        <div id="mainTimeCounter">25:00</div>
-    </div>
-    <div>
-        <div class="progress progress-striped">
-            <div class="bar" id="mainTimeProgress" style="width: 100%;"></div>
+                    <span class="pull-right">
+                        <button class="btn btn-sm btn-success" id="titleBtn" data-toggle="modal" data-target="#txtModal">Set Title</button>
+                        <button class="btn btn-sm btn-success" id="timerBtn" data-toggle="modal" data-target="#txtModal2">Set Timer</button>
+                    </span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div id="pomodoroTimer" class="span12">25:00</div>
+            </div>
+
+
+            <div class="row">
+                <div class="progress progress-success span12 hide" id="progress">
+                    <div class="bar" id="mainTimeProgress" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div style="text-align: center">
+                <iframe src="http://ghbtns.com/github-btn.html?user=hasantayyar&repo=pomodoro-app&type=follow&size=small"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="140" height="40"></iframe>
+                <iframe src="http://ghbtns.com/github-btn.html?user=hasantayyar&repo=pomodoro-app&type=fork&size=small"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="80" height="40"></iframe>
+            </div>
         </div>
-    </div>
-
-    <div style="margin-top: 2em" class="clearfix well">
-
-        <button class="btn btn-large btn-primary" id="startBtn">Start Pomodoro</button>
-        <button class="btn btn-large disabled" id="stopBtn">Stop</button>
-
-        <span class="pull-right">
-            <button class="btn btn-large" id="reminderBtn" data-toggle="modal" data-target="#txtModal">Set Reminder</button>
-            <button class="btn btn-large" id="timerBtn" data-toggle="modal" data-target="#txtModal2">Set Timer</button>
-        </span>
-
-    </div>
-
-    <div style="text-align: center">
-        Pomodoro v1.1 | Powered by Horsley
-    </div>
-</div>
-<div id="txtModal" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Set task reminder text</h3>
-    </div>
-    <div class="modal-body">
-        <input type="text" name="reminderText" style="width: 95%" placeholder="Remind yourself what you should do during the pomodoro...">
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" id="setReminderBtn">Save</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-    </div>
-</div>
-<div id="txtModal2" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Set timer interval</h3>
-    </div>
-    <div class="modal-body">
-        <div class="progress">
-            <div class="bar bar-success" id="pomodoroDuration" style="width: 35%;"></div>
-            <div class="bar bar-warning" id="restDuration" style="width: 20%;"></div>
+        <div id="txtModal" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 id="myModalLabel">Set task reminder text</h3>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="reminderText" style="width: 95%" placeholder="Write title to focus!">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="settitleBtn">Save</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
         </div>
-        <form class="form-inline">
-            <input type="number" name="pomodoroDuration" placeholder="The working time duration...">
-            <span>min</span>
+        <div id="txtModal2" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 id="myModalLabel">Set timer interval</h3>
+            </div>
+            <div class="modal-body">
+              
+                <form class="form-inline">
+                    Pomodoro : <input type="number" name="pomodoroDuration" placeholder="The working time duration...">
+                    <span>min</span>
+                    <br>
+                    Rest : <input type="number" name="restDuration" placeholder="The rest time duration...">
+                    <span>min</span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="setTimerBtn">Save</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+        </div>
 
-            <input type="number" name="restDuration" placeholder="The rest time duration...">
-            <span>min</span>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" id="setTimerBtn">Save</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-    </div>
-</div>
-</body>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.timers.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
 </html>

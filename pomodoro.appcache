@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# 2014-05-01 : v1
+
+CACHE:
+index.html
+js/bootstrap.min.js
+js/jquery.min.js
+js/jquery.timers.js
+js/app.js
+assets/css/bootstrap.min.css
+assets/fonts/j.woff 
+assets/fonts/jbold.woff
+assets/fonts/jlight.woff
