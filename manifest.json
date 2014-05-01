@@ -10,7 +10,7 @@
     },
     "app": {
         "background": {
-            "scripts": ["js/app.js"]
+            "scripts": ["js/bg.js"]
         }
     },
     "offline_enabled": true,
