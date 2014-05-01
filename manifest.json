@@ -8,7 +8,7 @@
     "description": "Tiny pomodoro clock. Use any where.",
     "icons": {
         "16": "assets/icon.png",
-        "128": "assets/icon.png"
+        "128": "assets/tomato.png"
     },
     "background": {
     // Recommended
