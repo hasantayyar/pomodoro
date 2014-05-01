@@ -10,13 +10,6 @@ $(function() {
     var btn_stop = $('#stopBtn');
     var bar_progress = $('#mainTimeProgress');
 
-$( "#btns" ).hover(function() {
-            $("#btns").animate({ marginTop: '0px'}, 100);
-        },function(){
-            $("#btns").animate({ marginTop: '-60px' }, 100);
-
-    }
-);
     btn_start.click(function() {
         $("#progress").slideDown("fast");
         if (pomodoroStatus === 0 || pomodoroStatus === 1 || pomodoroStatus === 4) {    //start new pomodoro
