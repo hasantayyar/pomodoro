@@ -1,6 +1,8 @@
 {
     "name": "Pomodoro Clock WebApp",
     "version": "0.0.1",
+    "default_locale": "en",
+    "homepage_url":"htp://pomodoro.lesson.im",
     "manifest_version": 2,
     "minimum_chrome_version": "23",
     "description": "Tiny pomodoro clock. Use any where.",
@@ -8,10 +10,9 @@
         "16": "assets/icon.png",
         "128": "assets/icon.png"
     },
-    "app": {
-        "background": {
-            "scripts": ["js/bg.js"]
-        }
+    "background": {
+    // Recommended
+    "persistent": false
     },
     "offline_enabled": true,
     "permissions": [

@@ -1,7 +1,14 @@
 <!DOCTYPE HTML>
-<html  manifest="pomodoro.appcache">
+<html xmlns:fb="http://ogp.me/ns/fb#" manifest="pomodoro.appcache">
     <head>
         <meta charset="UTF-8"/>
+        <meta name="description" content="Pomodoro App is a simple and efficient Pomodoro timer. You can modify your pomodori sprints and resting time.">
+	<meta name="keywords" content="pomodoro, webapp, productivity, timer app, mental agility, pomodori">
+	<meta name="author" content="Hasan Tayyar bEŞİK <tayyar.besik@gmail.com>">
+	<meta property="og:title" content=" simple and efficient Pomodoro timer">
+	<meta property="og:image" content="http://tayyar-dev/assets/icon.png">
+	<meta property="og:site_name" content="Pomodoro App -  simple and efficient Pomodoro timer">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pomodoro App</title> 
         <style>
@@ -15,10 +22,6 @@
     </head>
     <body> 
         <div class="container">
-            <div class="row">
-                <div id="titleContainer" class="span12 well hide"> Reminder </div>
-            </div>
-
             <div class="clearfix row well" id="btns" style="margin-top:-60px">
                 <div>
                     <button class="btn btn-sm btn-primary" id="startBtn">Start Pomodoro</button>
@@ -33,6 +36,10 @@
             </div>
             <div class="row">
                 <div id="pomodoroTimer" class="span12">25:00</div>
+            </div>
+
+	    <div class="row">
+                <div id="titleContainer" class="span12 well hide alert alert-danger"> Reminder </div>
             </div>
 
 
