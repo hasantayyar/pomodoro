@@ -1,7 +1,8 @@
 CACHE MANIFEST
-# 2014-05-01 : v3
+# 2014-05-01 : v8
 
 CACHE:
+ding.mp3
 index.html
 js/bootstrap.min.js
 js/jquery.min.js

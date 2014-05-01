@@ -33,7 +33,8 @@ $(function() {
                     pomodoroStatus = 3;
                     btn_start.html('Have a rest');
                     btn_start.removeClass('btn-primary').addClass('btn-success');
-                    stopCounter();
+                    document.getElementById("ding").play();
+		    stopCounter();
                 }
             });
         } else if (pomodoroStatus === 2 || pomodoroStatus === 3) { // start having a rest
