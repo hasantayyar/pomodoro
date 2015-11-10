@@ -137,8 +137,24 @@ $(function() {
         return min + ':' + (sec < 10 ? '0' : '') + sec;
     }
 
+    function notifyMe(message) {
+        if (!("Notification" in window)) {
+            alert(message);
+        }
+        else if (Notification.permission === "granted") {
+            var notification = new Notification(message);
+        } 
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+              if (permission === "granted") {
+                var notification = new Notification(message);
+              }
+            });
+        }
+    }
+
     function loadSettings() {
-	Notification.requestPermission();
+        Notification.requestPermission();
         if (window.localStorage) {
             var a, b, c;
             var storage = window.localStorage;

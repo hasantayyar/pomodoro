@@ -1,13 +1,13 @@
 CACHE MANIFEST
-# 2015-10-01 : v10
+# 2015-10-04 : v12
 
 CACHE:
 ding.mp3
 index.html
-js/bootstrap.min.js
-js/jquery.min.js
-js/jquery.timers.js
-js/app.js
+assets/js/bootstrap.min.js
+assets/js/jquery.2.1.4.min.js
+assets/js/jquery.timers.js
+assets/js/app.js
 assets/css/bootstrap.min.css
 assets/fonts/j.woff 
 assets/fonts/jbold.woff
