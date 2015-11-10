@@ -34,7 +34,8 @@ $(function() {
                     btn_start.html('Have a rest');
                     btn_start.removeClass('btn-primary').addClass('btn-success');
                     document.getElementById("ding").play();
-		    stopCounter();
+                    notifyMe("Have a rest!");
+		            stopCounter();
                 }
             });
         } else if (pomodoroStatus === 2 || pomodoroStatus === 3) { // start having a rest
@@ -50,6 +51,7 @@ $(function() {
                     pomodoroStatus = 4;
                     btn_start.html('Start Pomodoro');
                     btn_start.removeClass('btn-success').addClass('btn-primary');
+                    notifyMe("Start working!");
                     stopCounter();
                 }
             });
